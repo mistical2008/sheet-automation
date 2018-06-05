@@ -4,5 +4,14 @@ let keywords1 = [];
 let keywords2 = [];
 
 // Parse function
-var text = fs.readFileSync(filename,'utf8');
-console.log(text);
+function getKeywords(index) {
+  var text = fs.readFileSync(filename,'utf8');
+  var parsedParagraph = text.match(/\{(.*?)\}/g).map(val => {
+    return val.replace(/[\{\}]/g, '');
+  });
+  var parsedHeadingsKeywords = parsedParagraph[index].split('|');
+  return parsedHeadingsKeywords;
+  // console.log(parsedHeadingsKeywords);
+};
+console.log(getKeywords(0));
+console.log(getKeywords(1));
