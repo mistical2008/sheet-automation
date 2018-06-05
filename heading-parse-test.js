@@ -3,6 +3,14 @@ filename = "./heding_test.txt"
 fs.readFile(filename, 'utf8', function(err, data) {
   if (err) throw err;
   console.log('OK: ' + filename);
-  const parsedString = data.match(/\n{([^]*)}\n/g);
+  // Parse function
+  const parsedString = data.match(/\n{(.*?)}\n/g).map(val => {
+    return val.replace(/\n/g, '');
+  });
+
+  // output outcome
+  console.log('Text output:\n'.toUpperCase());
+  console.log(data);
+  console.log('Parsed paragraph:\n'.toUpperCase());
   console.log(parsedString);
 });
