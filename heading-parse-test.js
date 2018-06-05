@@ -4,7 +4,7 @@ fs.readFile(filename, 'utf8', function(err, data) {
   if (err) throw err;
   console.log('OK: ' + filename);
   // Parse function
-  const parsedString = data.match(/\n{(.*?)}\n/g).map(val => {
+  const parsedParagraph = data.match(/\n{(.*?)}\n/g).map(val => {
     return val.replace(/\n/g, '');
   });
 
@@ -12,5 +12,5 @@ fs.readFile(filename, 'utf8', function(err, data) {
   console.log('Text output:\n'.toUpperCase());
   console.log(data);
   console.log('Parsed paragraph:\n'.toUpperCase());
-  console.log(parsedString);
+  console.log(parsedParagraph);
 });
