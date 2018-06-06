@@ -1,7 +1,5 @@
 var fs = require('fs');
 const filename = "./heding_test.txt";
-let keywords1 = [];
-let keywords2 = [];
 
 // Parse function
 function getKeywords(index) {
