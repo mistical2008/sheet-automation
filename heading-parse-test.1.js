@@ -1,15 +1,25 @@
-var fs = require('fs');
+const fs = require('fs');
 const filename = "./heding_test.txt";
+combos = [];
 
 // Parse function
 function getKeywords(index) {
-  var text = fs.readFileSync(filename,'utf8');
-  var parsedParagraph = text.match(/\{(.*?)\}/g).map(val => {
+  const text = fs.readFileSync(filename,'utf8');
+  const parsedParagraph = text.match(/\{(.*?)\}/g).map(val => {
     return val.replace(/[\{\}]/g, '');
   });
-  var parsedHeadingsKeywords = parsedParagraph[index].split('|');
+  const parsedHeadingsKeywords = parsedParagraph[index].split('|');
   return parsedHeadingsKeywords;
   // console.log(parsedHeadingsKeywords);
 };
-console.log(getKeywords(0));
-console.log(getKeywords(1));
+
+array1 = getKeywords(0);
+array2 = getKeywords(1);
+
+array1.map((val) => {
+  array2.map((val2) => {
+    combos.push(val + " " + val2)
+  })
+})
+console.log(combos);
+console.log(combos.length);
