@@ -1,6 +1,6 @@
 const fs = require('fs');
-const path = require('path');
+// const path = require('path');
 
-files = fs.readdirSync('.');
+files = fs.readdirSync('./testdir');
 
 console.log(files);

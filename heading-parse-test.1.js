@@ -1,6 +1,6 @@
 const fs = require('fs');
 const filename = "./heding_test.txt";
-combos = [];
+const combos = [];
 
 // Parse function
 function getKeywords(index) {
@@ -13,13 +13,21 @@ function getKeywords(index) {
   // console.log(parsedHeadingsKeywords);
 };
 
-array1 = getKeywords(0);
-array2 = getKeywords(1);
-
-array1.map((val) => {
-  array2.map((val2) => {
-    combos.push(val + " " + val2)
+// Make conmbination of keywords in two arrays
+function headingCombs(arr1,arr2) {
+  arr1.map((val) => {
+    arr2.map((val2) => {
+      combos.push(val + ". " + val2)
+    })
   })
-})
+}
+
+// Call functions
+part1 = getKeywords(0);
+part2 = getKeywords(1);
+headingCombs(part1,part2);
+
 console.log(combos);
-console.log(combos.length);
+console.log("Всего комбинаций " + combos.length + "\n");
+console.log(part1);
+console.log(part2);
