@@ -13,11 +13,18 @@ function getKeywords(index) {
   // console.log(parsedHeadingsKeywords);
 };
 
+// Define function for removing duplicates
+const uniq = (arrArg) => {
+  return arrArg.filter((elem, pos, arr) => {
+    return arr.indexOf(elem) == pos;
+  });
+}
+
 // Define function for make conmbination of keywords in two arrays
 function headingCombs(arr1,arr2) {
   arr1.map((val) => {
     arr2.map((val2) => {
-      combos.push(val + ". " + val2)
+      combos.push(val + ". " + val2);
     })
   })
 }
