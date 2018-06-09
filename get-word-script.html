@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>seo: ручной уникализатор текста</title>
+    <style type="text/css">
+        html, body {margin:5px;padding:0;}
+        textarea, table {width:99%}
+        h1 {font-size:1.2em}
+        h2 {font-size:1.1em}
+        #header {margin:-10px;}
+        #header h1 {margin:5px 5px 15px 5px;padding:0;}
+        #footer {text-align:right;padding-right:1em;}
+        #header,#footer{background-color:#eee;}
+        .attention {color:#c00}
+        td {font-weight:bold;text-align:left;vertical-align:top;border-bottom:1px dotted #ccc;}
+        .text {font-weight:normal;font-size:0.85em;width:33%;border-left:1px dotted #ccc;padding-left:0.5em;}
+    </style>
+</head>
+
+<body>
+<div>
+    <div id="header">
+        <h1>ручной уникализатор текста</h1>
+    </div>
+
+    <noscript><h2 class="attention">для продолжения работы необходимо включить JavaScript</h2></noscript>
+    <table>
+    <tbody>
+    <tr>
+        <td>исходный текст:<br><textarea id="id1" cols="50" rows="5">Информация в нашей жизни {имеет ключевое значение|занимает одно из главных мест}.
+В век глобальной {информативности|интернетизации} мы просто не можем позволить себе {отстать от жизни|остаться за чертой событий}.</textarea></td>
+        <td rowspan="3" class="text">
+<p>Скрипт предназначен для «размножения» специально составленных текстов.</p>
+<p><em>Текст</em> записывается как есть, а варианты для выбора необходимо заключать в фигурные скобки, разделяя вертикальной чертой, например, так: <strong>{раз|два|три}</strong>. Внутри фигурных скобок могут быть отдельные слова, фразы и даже целые предложения!</p>
+<p>Допускается множественное представление вариантов, например, так: <strong>это {раз|два} {ёлка|палка}</strong>. Может получиться один из следюущих вариантов:<br>
+это раз ёлка<br>
+это два палка<br>
+и др.</p>
+
+<p>Выбор вариантов (кусков текста, заключённых в фигурные скобки) происходит случайным образом.</p>
+<p>Скрипт работает очень быстро, ведь для генерации используются мощности исключительно Вашего компьютера, а значит не будет тратиться время на соединение с сервером.</p>
+<p>Совместимость: IE8+, FF3+, Opera9+, Chrome</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td><input type="button" value="сгенерировать" onclick="go()"></td>
+        <td> </td>
+    </tr>
+
+    <tr>
+        <td> <div id="links"><p>полученный текст:<br>
+            <textarea id="final" cols="50" rows="15"></textarea></p></div>
+        </td>
+        <td> </td>
+    </tr>
+    </tbody>
+    </table>
+
+    <h2><a id="adv" href="http://www.sape.ru/r.KOdlXtdpak.php">заработок на своём сайте</a></h2>
+    <div id="footer">скрипт разработал<a href="http://a-panov.ru/"> andi</a></div>
+</div>
+
+<script type="text/javascript">
+ming();
+function ming(){
+    document.getElementById('adv').style.color = Math.random() > 0.5 ? '#00c' : '#0c0';
+    setTimeout('ming()', 1000);
+}
+
+    // основная функция
+    function go() {
+    var
+        id1 = document.getElementById('id1').value;
+        if (id1 === '') return alert('Введите текст');
+
+        document.getElementById('final').value = gen(id1);
+        document.getElementById('links').style.display = 'block';
+        document.getElementById('final').focus();
+        document.getElementById('final').select();
+    }
+
+    function gen(text) { // Спарсенный текст в качестве параметра функции
+        //
+        var s = text.replace(/{([^}]+)}/g, function(a, b) {
+            var t = b.split('|');
+            return t[parseInt(Math.random() * t.length)];
+        });
+        return s.replace(/ {2,}/g, ' ');
+    }
+</script>
+</body>
+</html>

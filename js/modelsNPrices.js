@@ -1,6 +1,6 @@
 const fs = require('fs');
 // const path = require('path');
-const files = fs.readdirSync('./testdir');
+const files = fs.readdirSync('../testdir');
 let modelsArr = [];
 let pricesArr = [];
 let prodidArr = [];
@@ -23,12 +23,9 @@ getFromDirName(modelsArr, /\w(.*?)\(/g, /\s\($/);
 getFromDirName(pricesArr, /\)(.*?)\d$/g, /^\)\s/);
 // Construct for product ID
 getFromDirName(prodidArr, /\((.*?)\)/g, /[\(\)]/g);
-// prodidArr.map(val => {Number(val) + 5});
-// // Encrease product ID by 1
-// let prodidArr2 = prodidArr.map(val => {val + 1});
-// console.log(prodidEncr());
+// Modify and add data to object
 obj.id = Number(prodidArr[0]) + 2;
-obj.price = Number(pricesArr[0]) - 300;
+obj.price = Number(pricesArr[0]) + 300;
 
 // Logging
 console.log(modelsArr);
