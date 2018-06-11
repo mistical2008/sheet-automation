@@ -54,10 +54,16 @@ function getFromDirName(arr, toSearch, toReplace) {
   });
 }
 
-// const newArray = [];
-// function cyclePush(shortArr, longArr) {
-
-// }
+const newArray = [];
+let index = -1;
+function cycledPush(shortArr, longArr) {
+  longArr.map(val => {
+    if (index >= shortArr.length) {
+      let index = -1;
+    }
+    newArray.push(shortArr[++index]);
+  })
+}
 
 // Call functions
 // Get heading-part 1
@@ -81,7 +87,7 @@ getFromDirName(prodidArr, /\((.*?)\)/g, /[\(\)]/g);
 obj.id = Number(prodidArr[0]) + 2;
 obj.price = Number(pricesArr[0]) + 300;
 // Cut headings array
-
+cycledPush(part1, headingsFull);
 
 // Logging
 // console.log(headingsFull);
@@ -91,5 +97,5 @@ console.log(part1);
 console.log(modelsArr);
 console.log(pricesArr);
 console.log(prodidArr);
-// console.log(cycledArr);
+console.log(newArray);
 // console.log(dirs);
