@@ -1,6 +1,12 @@
 const fs = require('fs');
+// const path = require('path');
+const dirs = fs.readdirSync('../testdir');
 const headingsFile = "../heding_test.txt";
+let modelsArr = [];
+let pricesArr = [];
+let prodidArr = [];
 const headingsFull = [];
+let obj = {};
 
 // Define parse function
 function getKeywords(index) {
@@ -39,6 +45,20 @@ function shuffleArray(array) {
   return array;
 }
 
+// Define dirname parse function
+function getFromDirName(arr, toSearch, toReplace) {
+  return dirs.map(val => {
+    return val.match(toSearch).map(val2 => {
+      return arr.push(val2.replace(toReplace, ''));
+    })
+  });
+}
+
+// const newArray = [];
+// function cyclePush(shortArr, longArr) {
+
+// }
+
 // Call functions
 // Get heading-part 1
 part1 = getKeywords(0);
@@ -49,8 +69,27 @@ headingCombs(part1,part2);
 // Shuffle array
 shuffleArray(headingsFull);
 
+
+// Call functions
+// Construct for models
+getFromDirName(modelsArr, /\w(.*?)\(/g, /\s\($/);
+// Construct for prices
+getFromDirName(pricesArr, /\)(.*?)\d$/g, /^\)\s/);
+// Construct for product ID
+getFromDirName(prodidArr, /\((.*?)\)/g, /[\(\)]/g);
+// Modify and add data to object
+obj.id = Number(prodidArr[0]) + 2;
+obj.price = Number(pricesArr[0]) + 300;
+// Cut headings array
+
+
 // Logging
-console.log(headingsFull);
-console.log("Всего комбинаций " + headingsFull.length + "\n");
+// console.log(headingsFull);
+// console.log("Всего комбинаций " + headingsFull.length + "\n");
 console.log(part1);
-console.log(part2);
+// console.log(part2);
+console.log(modelsArr);
+console.log(pricesArr);
+console.log(prodidArr);
+// console.log(cycledArr);
+// console.log(dirs);
