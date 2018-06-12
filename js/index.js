@@ -1,5 +1,7 @@
 const fs = require('fs');
 const headingsFile = "../heding_test.txt";
+const introBlock = "../copy-text.txt";
+const copyText = fs.readFileSync(introBlock,'utf8');
 const files = fs.readdirSync('../testdir');
 let headingsFull = [];
 // let headingsFirst = [];
@@ -70,6 +72,15 @@ function fillArray(shortArray, longArray) {
   return newArray.concat(shortArray.slice(0, rest)); // headingsFirst = [1, 2, 3, 4, 1, 2…]
 }
 
+// Define function for replace text in copy
+function replaceText() {
+  return copyText.replace(/\%FIRSTPART\%/g, 'NEWFIRSTPART')
+  .replace(/\%BRAND\%/g, 'NEWBRAND')
+  .replace(/\%PRODID\%/g, 'NEWPRODID')
+  .replace(/\%RANDOMTEXT\%/g, 'NEWRANDOMTEXT')
+  .replace(/\%PRICE\%/g, 'NEWPRICE');
+}
+
 // Call functions
 // Construct for models
 getFromDirName(modelsArr, /\w(.*?)\(/g, /\s\($/);
@@ -90,6 +101,8 @@ shuffleArray(headingsFull);
 // Modify and add data to object
 objOut.id = Number(prodidArr[0]) + 2;
 objOut.price = Number(pricesArr[0]) + 300;
+// New copy text
+let newCopyText = replaceText();
 
 // Logging
 console.log(headingsFull);
