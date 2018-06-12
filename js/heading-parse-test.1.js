@@ -52,5 +52,5 @@ shuffleArray(headingsFull);
 // Logging
 console.log(headingsFull);
 console.log("Всего комбинаций " + headingsFull.length + "\n");
-console.log(part1);
+console.log(part1.length);
 console.log(part2);
