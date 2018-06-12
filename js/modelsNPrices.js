@@ -4,7 +4,7 @@ const files = fs.readdirSync('../testdir');
 let modelsArr = [];
 let pricesArr = [];
 let prodidArr = [];
-let obj = {};
+let objOut = {};
 
 
 // Define dirname parse function
@@ -24,12 +24,12 @@ getFromDirName(pricesArr, /\)(.*?)\d$/g, /^\)\s/);
 // Construct for product ID
 getFromDirName(prodidArr, /\((.*?)\)/g, /[\(\)]/g);
 // Modify and add data to object
-obj.id = Number(prodidArr[0]) + 2;
-obj.price = Number(pricesArr[0]) + 300;
+objOut.id = Number(prodidArr[0]) + 2;
+objOut.price = Number(pricesArr[0]) + 300;
 
 // Logging
 console.log(modelsArr);
 console.log(pricesArr);
 console.log(prodidArr);
-console.log(obj);
+console.log(objOut);
 // console.log(files);
