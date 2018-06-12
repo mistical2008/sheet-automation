@@ -1,6 +1,6 @@
 const fs = require('fs');
-const introBlock = "../copy-text.txt";
-const copyText = fs.readFileSync(introBlock,'utf8');
+const copyFile = "../copy-text.txt";
+const copyText = fs.readFileSync(copyFile,'utf8');
 
 // Function start
 let newCopyText = replaceText();

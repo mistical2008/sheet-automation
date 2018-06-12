@@ -1,7 +1,7 @@
 const fs = require('fs');
 const headingsFile = "../heding_test.txt";
-const introBlock = "../copy-text.txt";
-const copyText = fs.readFileSync(introBlock,'utf8');
+const copyFile = "../copy-text.txt";
+const copyText = fs.readFileSync(copyFile,'utf8');
 const files = fs.readdirSync('../testdir');
 let headingsFull = [];
 // let headingsFirst = [];
