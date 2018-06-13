@@ -1,7 +1,7 @@
-const shortArray1 = [1, 2, 3, 4];
-const longArray1 = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+const shortArray1 = ["one" , 2, "three", 4];
+const longArray1 = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 
-const newArray = fillArray(shortArray1, longArray1);
+// const newArray = fillArray(shortArray1, longArray1);
 function fillArray(shortArray, longArray) {
     let newArray = [];
     //вычисляем количество циклов полного копирования
@@ -16,5 +16,5 @@ function fillArray(shortArray, longArray) {
     // console.log(newArray);
     return newArray.concat(shortArray.slice(0, rest)); // headingsFirst = [1, 2, 3, 4, 1, 2…]
 }
-
-console.log(newArray);
+const newArray = fillArray(shortArray1, longArray1);
+// console.log(newArray);
