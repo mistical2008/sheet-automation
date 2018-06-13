@@ -8,6 +8,8 @@ let headingsFull = [];
 let modelsArr = [];
 let pricesArr = [];
 let prodidArr = [];
+let priceMin = 218;
+let priceMax = 398;
 let objOut = {};
 
 // Define parse function
@@ -56,7 +58,7 @@ function getFromDirName(arr, toSearch, toReplace) {
   });
 }
 
-// Define function for fill array
+// // Define function for fill array
 function fillArray(shortArray, longArray) {
   let newArray = [];
   //вычисляем количество циклов полного копирования
@@ -68,7 +70,6 @@ function fillArray(shortArray, longArray) {
       newArray = newArray.concat(shortArray);
   }
   //копируем в конец оставшиеся элементы
-  // console.log(newArray);
   return newArray.concat(shortArray.slice(0, rest)); // headingsFirst = [1, 2, 3, 4, 1, 2…]
 }
 
@@ -80,6 +81,13 @@ function replaceText() {
   .replace(/\%RANDOMTEXT\%/g, 'NEWRANDOMTEXT')
   .replace(/\%PRICE\%/g, 'NEWPRICE');
 }
+
+// Define function for random price generate
+function getRandomPrice(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min) * 10;
+}
+
+let randPrice = getRandomPrice(priceMin, priceMax);
 
 // Call functions
 // Construct for models
