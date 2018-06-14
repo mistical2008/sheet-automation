@@ -3,8 +3,8 @@ const headingsFile = "../heding_test.txt";
 const headingsFull = [];
 
 // Define parse function
-function getKeywords(index) {
-  const headingsBlock = fs.readFileSync(headingsFile,'utf8');
+function getKeywords(file, index) {
+  const headingsBlock = fs.readFileSync(file,'utf8');
   const parsedParagraph = headingsBlock.match(/\{(.*?)\}/g).map(val => {
     return val.replace(/[\{\}]/g, '');
   });
@@ -41,9 +41,9 @@ function shuffleArray(array) {
 
 // Call functions
 // Get heading-part 1
-part1 = getKeywords(0);
+part1 = getKeywords(headingsFile, 0);
 // Get heading-part 2
-part2 = getKeywords(1);
+part2 = getKeywords(headingsFile, 1);
 // Get headings
 headingCombs(part1,part2);
 // Shuffle array

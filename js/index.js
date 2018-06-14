@@ -1,5 +1,6 @@
 const fs = require('fs');
 const headingsFile = "../heding_test.txt";
+const introText = "../random-text.txt";
 const copyFile = "../copy-text.txt";
 const copyText = fs.readFileSync(copyFile,'utf8');
 const files = fs.readdirSync('../testdir');
@@ -8,13 +9,14 @@ let headingsFull = [];
 let modelsArr = [];
 let pricesArr = [];
 let prodidArr = [];
+let introCombosArr = [];
 let priceMin = 218;
 let priceMax = 398;
 let objOut = {};
 
 // Define parse function
-function getKeywords(index) {
-  const headingsBlock = fs.readFileSync(headingsFile,'utf8');
+function getKeywords(file, index) {
+  const headingsBlock = fs.readFileSync(file,'utf8');
   const parsedParagraph = headingsBlock.match(/\{(.*?)\}/g).map(val => {
     return val.replace(/[\{\}]/g, '');
   });
@@ -73,6 +75,15 @@ function fillArray(shortArray, longArray) {
   return newArray.concat(shortArray.slice(0, rest)); // headingsFirst = [1, 2, 3, 4, 1, 2…]
 }
 
+// Define function for make conmbination of keywords in two arrays
+function introCombs(arr1,arr2) {
+  arr1.map((val) => {
+    arr2.map((val2) => {
+      introCombosArr.push(val + " способны " + val2 + ".");
+    })
+  })
+}
+
 // Define function for replace text in copy
 function replaceText() {
   return copyText.replace(/\%FIRSTPART\%/g, 'NEWFIRSTPART')
@@ -97,15 +108,28 @@ getFromDirName(pricesArr, /\)(.*?)\d$/g, /^\)\s/);
 // Construct for product ID
 getFromDirName(prodidArr, /\((.*?)\)/g, /[\(\)]/g);
 // Get heading-part 1
-const part1 = getKeywords(0);
+const part1 = getKeywords(headingsFile, 0);
 // Get heading-part 2
-const part2 = getKeywords(1);
-// Fill array with part1
-const headingFirst = fillArray(part1, modelsArr);
+const part2 = getKeywords(headingsFile, 1);
 // Get headings
 headingCombs(part1,part2);
-// Shuffle array
+// Shuffle headings array
 shuffleArray(headingsFull);
+// Get intro-part 2
+introPart1 = getKeywords(introText, 0);
+// Get intro-part 2
+introPart2 = getKeywords(introText, 1);
+// Get intros
+introCombs(introPart1,introPart2);
+
+// Start conditions for arrays length ================
+if (part1.length > modelsArr.length) {
+  part1 = part1.slice(0, modelsArr.length);
+}
+// ==================================================
+
+// Fill array with part1
+const headingFirst = fillArray(part1, modelsArr);
 // Modify and add data to object
 objOut.id = Number(prodidArr[0]) + 2;
 objOut.price = Number(pricesArr[0]) + 300;
@@ -113,7 +137,7 @@ objOut.price = Number(pricesArr[0]) + 300;
 let newCopyText = replaceText();
 
 // Logging
-console.log(headingsFull);
-console.log("Всего комбинаций " + headingsFull.length + "\n");
-console.log(part1);
-console.log(part2);
+// console.log(headingsFull);
+// console.log("Всего комбинаций " + headingsFull.length + "\n");
+// console.log(part1);
+// console.log(part2);

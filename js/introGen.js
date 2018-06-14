@@ -1,10 +1,10 @@
 const fs = require('fs');
 const introText = "../random-text.txt";
-const introCombosArr = [];
+let introCombosArr = [];
 
 // Define parse function
-function getKeywords(index) {
-  const text = fs.readFileSync(introText,'utf8');
+function getKeywords(file, index) {
+  const text = fs.readFileSync(file,'utf8');
   const parsedParagraph = text.match(/\{(.*?)\}/g).map(val => {
     return val.replace(/[\{\}]/g, '');
   });
@@ -20,13 +20,13 @@ function introCombs(arr1,arr2) {
   })
 }
 
-introPart1 = getKeywords(0);
+introPart1 = getKeywords(introText, 0);
 // Get heading-part 2
-introPart2 = getKeywords(1);
+introPart2 = getKeywords(introText, 1);
 // Get headings
 introCombs(introPart1,introPart2);
 
 // console.log(introPart1);
 // console.log(introPart2);
 console.log(introCombosArr);
-console.log("Всего комбинаций: " +  introCombosArr.length);
+// console.log("Всего комбинаций: " +  introCombosArr.length);

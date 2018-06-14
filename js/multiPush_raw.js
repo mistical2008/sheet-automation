@@ -11,4 +11,4 @@ for (let i = 0; i < loops; i++) {
 }
 //копируем в конец оставшиеся элементы
 newArray = newArray.concat(shortArray.slice(0, rest));
-console.log(newArray);
+// console.log(newArray);
