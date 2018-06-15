@@ -108,9 +108,9 @@ getFromDirName(pricesArr, /\)(.*?)\d$/g, /^\)\s/);
 // Construct for product ID
 getFromDirName(prodidArr, /\((.*?)\)/g, /[\(\)]/g);
 // Get heading-part 1
-const part1 = getKeywords(headingsFile, 0);
+let part1 = getKeywords(headingsFile, 0);
 // Get heading-part 2
-const part2 = getKeywords(headingsFile, 1);
+let part2 = getKeywords(headingsFile, 1);
 // Get headings
 headingCombs(part1,part2);
 // Shuffle headings array
@@ -122,9 +122,26 @@ introPart2 = getKeywords(introText, 1);
 // Get intros
 introCombs(introPart1,introPart2);
 
-// Start conditions for arrays length ================
-if (part1.length > modelsArr.length) {
+// Start conditions for arrays length ================ For review ============
+if (part1.length > modelsArr.length && introCombosArr.length > modelsArr.length) {
   part1 = part1.slice(0, modelsArr.length);
+  console.log(part1);
+  introCombosArr = introCombosArr.slice(0, modelsArr.length);
+  console.log(introCombosArr);
+  headingsFull = headingsFull.slice(0, modelsArr.length);
+  console.log(headingsFull);
+} else if (part1.length < modelsArr.length && introCombosArr.length < modelsArr.length) {
+  part1 = fillArray(part1, modelsArr);
+  introCombosArr = fillArray(introCombosArr, modelsArr);
+  headingsFull = headingsFull.slice(0, modelsArr.length);
+} else if (part1.length < modelsArr.length && introCombosArr.length > modelsArr.length) {
+  part1 = fillArray(part1, modelsArr);
+  introCombosArr = introCombosArr.slice(0, modelsArr.length);
+  headingsFull = headingsFull.slice(0, modelsArr.length);
+} else if (part1.length > modelsArr.length && introCombosArr.length < modelsArr.length) {
+  part1 = part1.slice(0, modelsArr.length);
+  introCombosArr = fillArray(introCombosArr, modelsArr);
+  headingsFull = headingsFull.slice(0, modelsArr.length);
 }
 // ==================================================
 
