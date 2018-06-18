@@ -1,6 +1,6 @@
 «%FIRSTPART%»
 
-«%BRAND%» Арт: %ID%
+«%BRAND%» Арт: %PRODID%
 
 %RANDOMTEXT%
 

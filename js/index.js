@@ -5,6 +5,7 @@ const headingsFile = config.headingsFile;
 const introText = config.introText;
 const copyFile = config.copyFile;
 const copyText = fs.readFileSync(copyFile,'utf8');
+console.log(copyText);
 const modelsDirs = fs.readdirSync(brand);
 let headingsFull = [];
 // let headingsFirst = [];
@@ -88,11 +89,11 @@ function introCombs(arr1,arr2) {
 
 // Define function for replace text in copy
 function replaceText() {
-  return copyText.replace(/\%FIRSTPART\%/g, 'NEWFIRSTPART')
-  .replace(/\%BRAND\%/g, 'NEWBRAND')
-  .replace(/\%PRODID\%/g, 'NEWPRODID')
-  .replace(/\%RANDOMTEXT\%/g, 'NEWRANDOMTEXT')
-  .replace(/\%PRICE\%/g, 'NEWPRICE');
+  return copyText.replace(/\%FIRSTPART\%/g, part1[0])
+  .replace(/\%BRAND\%/g, modelsArr[0])
+  .replace(/\%PRODID\%/g, objOut.id)
+  .replace(/\%RANDOMTEXT\%/g, introCombosArr[0])
+  .replace(/\%PRICE\%/g, randPrice);
 }
 
 // Define function for random price generate
@@ -148,13 +149,13 @@ if (part1.length > modelsArr.length && introCombosArr.length > modelsArr.length)
 // ==================================================
 
 // Fill array with part1
-const headingFirst = fillArray(part1, modelsArr);
+// const headingFirst = fillArray(part1, modelsArr);
 // Modify and add data to object
 objOut.id = Number(prodidArr[0]) + 2;
 objOut.price = Number(pricesArr[0]) + 300;
 // New copy text
-let newCopyText = replaceText();
 
+let newCopyText = replaceText();
 // Logging
 // console.log(headingsFull);
 // console.log("Всего комбинаций " + headingsFull.length + "\n");
