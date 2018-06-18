@@ -1,5 +1,6 @@
 const fs = require('fs');
-const copyFile = "../copy-text.txt";
+const config = require('./config');
+const copyFile = config.copyFile;
 const copyText = fs.readFileSync(copyFile,'utf8');
 
 // Function start

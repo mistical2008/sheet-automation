@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const introText = "../random-text.txt";
+const config = require('./config');
+const brand = config.brand;
+const introText = config.introText;
 let introCombosArr = [];
 
 // Define parse function

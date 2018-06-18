@@ -1,17 +1,19 @@
 const fs = require('fs');
-const headingsFile = "../heding_test.txt";
-const introText = "../random-text.txt";
-const copyFile = "../copy-text.txt";
+const config = require('./config');
+const brand = config.brand;
+const headingsFile = config.headingsFile;
+const introText = config.introText;
+const copyFile = config.copyFile;
 const copyText = fs.readFileSync(copyFile,'utf8');
-const files = fs.readdirSync('../testdir');
+const modelsDirs = fs.readdirSync(brand);
 let headingsFull = [];
 // let headingsFirst = [];
 let modelsArr = [];
 let pricesArr = [];
 let prodidArr = [];
 let introCombosArr = [];
-let priceMin = 218;
-let priceMax = 398;
+let priceMin = config.priceMin;
+let priceMax = config.priceMax;
 let objOut = {};
 
 // Define parse function
@@ -53,7 +55,7 @@ function shuffleArray(array) {
 
 // Define dirname parse function
 function getFromDirName(arr, toSearch, toReplace) {
-  return files.map(val => {
+  return modelsDirs.map(val => {
     return val.match(toSearch).map(val2 => {
       return arr.push(val2.replace(toReplace, ''));
     })

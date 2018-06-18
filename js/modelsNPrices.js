@@ -1,6 +1,9 @@
 const fs = require('fs');
+const path = require('path');
+const config = require('./config');
+const brand = config.brand;
 // const path = require('path');
-const files = fs.readdirSync('../testdir');
+const modelsDirs = fs.readdirSync(brand);
 let modelsArr = [];
 let pricesArr = [];
 let prodidArr = [];
@@ -9,7 +12,7 @@ let objOut = {};
 
 // Define dirname parse function
 function getFromDirName(arr, toSearch, toReplace) {
-  return files.map(val => {
+  return modelsDirs.map(val => {
     return val.match(toSearch).map(val2 => {
       return arr.push(val2.replace(toReplace, ''));
     })
@@ -29,6 +32,7 @@ objOut.price = Number(pricesArr[0]) + 300;
 
 // Logging
 console.log(modelsArr);
+console.log(modelsDirs);
 console.log(pricesArr);
 console.log(prodidArr);
 console.log(objOut);

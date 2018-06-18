@@ -1,0 +1,8 @@
+{
+  "name": "avito-xml",
+  "version": "0.2",
+  "repository": {
+    git@github.com:mistical2008/sheet-automation.git
+  },
+  "dependencies": {}
+}

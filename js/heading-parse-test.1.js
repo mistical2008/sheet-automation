@@ -1,5 +1,6 @@
 const fs = require('fs');
-const headingsFile = "../heding_test.txt";
+const config = require('./config');
+const headingsFile = config.headingsFile;
 const headingsFull = [];
 
 // Define parse function

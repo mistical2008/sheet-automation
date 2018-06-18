@@ -1,0 +1,37 @@
+dependencies:
+  node-dir: 0.1.17
+packages:
+  /balanced-match/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
+  /brace-expansion/1.1.11:
+    dependencies:
+      balanced-match: 1.0.0
+      concat-map: 0.0.1
+    dev: false
+    resolution:
+      integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==
+  /concat-map/0.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
+  /minimatch/3.0.4:
+    dependencies:
+      brace-expansion: 1.1.11
+    dev: false
+    resolution:
+      integrity: sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
+  /node-dir/0.1.17:
+    dependencies:
+      minimatch: 3.0.4
+    dev: false
+    engines:
+      node: '>= 0.10.5'
+    resolution:
+      integrity: sha1-X1Zl2TNRM1yqvvjxxVRRbPXx5OU=
+registry: 'https://registry.npmjs.org/'
+shrinkwrapMinorVersion: 5
+shrinkwrapVersion: 3
+specifiers:
+  node-dir: ^0.1.17
