@@ -12,6 +12,8 @@ let headingsFull = [];
 let modelsArr = [];
 let pricesArr = [];
 let prodidArr = [];
+let prodidAdd = config.prodidAdd;
+let priceAdd = config.priceAdd;
 let introCombosArr = [];
 let priceMin = config.priceMin;
 let priceMax = config.priceMax;
@@ -151,8 +153,9 @@ if (part1.length > modelsArr.length && introCombosArr.length > modelsArr.length)
 // Fill array with part1
 // const headingFirst = fillArray(part1, modelsArr);
 // Modify and add data to object
-objOut.id = Number(prodidArr[0]) + 2;
-objOut.price = Number(pricesArr[0]) + 300;
+
+objOut.id = (prodidAdd != undefined) ? Number(prodidArr[0]) + prodidAdd : Number(prodidArr[0]);
+objOut.price = (priceAdd != undefined) ? Number(pricesArr[0]) + priceAdd : Number(pricesArr[0]);
 // New copy text
 
 let newCopyText = replaceText();
