@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
-const brand = config.brand;
+const workPath = config.workPath;
 const introText = config.introText;
 let introCombosArr = [];
 

@@ -3,17 +3,17 @@
 const fs = require('fs');
 // const brand = ('../testdir');
 let config = require('./config');
-let brand = config.brand;
-const cleanBrand = brand.replace(/../, ''); // Получаем папку бренда
-const modelsDirs = fs.readdirSync(brand); // Получаем папки моделей
+let workPath = config.workPath;
+const brand = fs.readdirSync(workPath)[0]; // Получаем папку бренда
+// const cleanBrand = workPath.replace(/.\/assets/, '');
+const modelsDirs = fs.readdirSync(workPath + '/' + brand); // Получаем папки моделей
 let imgsObj = [];
-//== Сценарий 1
 // Поучаем имена картинок в папке моделей
 modelsDirs.map(dir => {
   function createObj() {
     let obj = {};
     obj.modelDir = dir;
-    obj.imgs = fs.readdirSync(brand + '/' + dir);
+    obj.imgs = fs.readdirSync(workPath + '/' + brand + '/' + dir);
     return obj;
   }
   object = createObj();
@@ -27,7 +27,7 @@ function linkBuild() {
     let imgsTemp = index.imgs;
     let tempArr = [];
     index.imgs.map(img => {
-      tempArr.push("domen.ru/chasy/" + modelDir + '/' + img);
+      tempArr.push(config.domain + brand + '/' + modelDir + '/' + img);
     })
     console.log(tempArr);
     return index.imgs = tempArr;

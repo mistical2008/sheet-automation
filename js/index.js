@@ -1,12 +1,13 @@
 const fs = require('fs');
 const config = require('./config');
-const brand = config.brand;
 const headingsFile = config.headingsFile;
 const introText = config.introText;
 const copyFile = config.copyFile;
 const copyText = fs.readFileSync(copyFile,'utf8');
 console.log(copyText);
-const modelsDirs = fs.readdirSync(brand);
+const workPath = config.workPath;
+const brand = fs.readdirSync(workPath)[0]; // Получаем папку бренда
+const modelsDirs = fs.readdirSync(workPath + '/' + brand);
 let headingsFull = [];
 // let headingsFirst = [];
 let modelsArr = [];

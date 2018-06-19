@@ -1,9 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
-const brand = config.brand;
+const workPath = config.workPath;
+const brand = fs.readdirSync(workPath)[0]; // Получаем папку бренда
 // const path = require('path');
-const modelsDirs = fs.readdirSync(brand);
+const modelsDirs = fs.readdirSync(workPath + '/' + brand);
+const priceAdd = config.priceAdd;
+const prodidAdd = config.prodidAdd;
 let modelsArr = [];
 let pricesArr = [];
 let prodidArr = [];
@@ -27,8 +30,8 @@ getFromDirName(pricesArr, /\)(.*?)\d$/g, /^\)\s/);
 // Construct for product ID
 getFromDirName(prodidArr, /\((.*?)\)/g, /[\(\)]/g);
 // Modify and add data to object
-objOut.id = Number(prodidArr[0]) + 2;
-objOut.price = Number(pricesArr[0]) + 300;
+objOut.id = Number(prodidArr[0]) + prodidAdd;
+objOut.price = Number(pricesArr[0]) + priceAdd;
 
 // Logging
 console.log(modelsArr);
