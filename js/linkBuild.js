@@ -14,10 +14,10 @@ function DBgen() {
   modelsDirs.map(dir => {
     function createObj() {
       let obj = {};
-      let modelDir = obj.modelDir;
-      let imgsTemp = obj.imgs;
-      let tempArr = [];
+      // let imgsTemp = obj.imgs;
       obj.modelDir = dir;
+      let modelDir = obj.modelDir;
+      let tempArr = [];
       obj.imgs = fs.readdirSync(workPath + '/' + brand + '/' + dir)
       .map(img => {
         tempArr.push(config.domain + brand + '/' + modelDir + '/' + img);
