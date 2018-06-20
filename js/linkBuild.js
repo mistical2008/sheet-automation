@@ -7,44 +7,25 @@ let workPath = config.workPath;
 const brand = fs.readdirSync(workPath)[0]; // Получаем папку бренда
 // const cleanBrand = workPath.replace(/.\/assets/, '');
 const modelsDirs = fs.readdirSync(workPath + '/' + brand); // Получаем папки моделей
-let imgsObj = [];
-// Поучаем имена картинок в папке моделей
-modelsDirs.map(dir => {
-  function createObj() {
-    let obj = {};
-    obj.modelDir = dir;
-    obj.imgs = fs.readdirSync(workPath + '/' + brand + '/' + dir);
-    return obj;
-  }
-  object = createObj();
-  imgsObj.push(object);
-})
+let DB = [];
 
-// Database build with link constructor
-function linkBuild() {
-  imgsObj.map(index => {
-    let modelDir = index.modelDir;
-    let imgsTemp = index.imgs;
-    let tempArr = [];
-    index.imgs.map(img => {
-      tempArr.push(config.domain + brand + '/' + modelDir + '/' + img);
-    })
-    console.log(tempArr);
-    return index.imgs = tempArr;
-  })
+// Генерация базы папок моделей и адресов изображений
+function DBgen() {
+  modelsDirs.map(dir => {
+    function createObj() {
+      let obj = {};
+      let modelDir = obj.modelDir;
+      let imgsTemp = obj.imgs;
+      let tempArr = [];
+      obj.modelDir = dir;
+      obj.imgs = fs.readdirSync(workPath + '/' + brand + '/' + dir)
+      .map(img => {
+        tempArr.push(config.domain + brand + '/' + modelDir + '/' + img);
+      });
+      obj.imgs = tempArr;
+      return obj;
+    }
+    DB.push(createObj());
+  });
 }
-linkBuild();
-console.log(imgsObj);
-
-/*
-imgsObj = [
-  {
-  modelDir: dir,
-  imgs: fs.readdirSync(dir)
-  },
-  {
-  modelDir: dir,
-  imgs: fs.readdirSync(dir)
-  }
-]
-*/
+DBgen();
