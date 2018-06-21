@@ -92,7 +92,7 @@ function introCombs(arr1,arr2) {
 
 // Define function for replace text in copy
 function replaceText() {
-  return copyText.replace(/\%FIRSTPART\%/g, part1[0])
+  return copyText.replace(/\%FIRSTPART\%/g, part1[0]) // Добавить параметр для индекса
   .replace(/\%BRAND\%/g, modelsArr[0])
   .replace(/\%PRODID\%/g, objOut.id)
   .replace(/\%RANDOMTEXT\%/g, introCombosArr[0])
@@ -131,23 +131,16 @@ introCombs(introPart1,introPart2);
 // Start conditions for arrays length ================ For review ============
 if (part1.length > modelsArr.length && introCombosArr.length > modelsArr.length) {
   part1 = part1.slice(0, modelsArr.length);
-  console.log(part1);
   introCombosArr = introCombosArr.slice(0, modelsArr.length);
-  console.log(introCombosArr);
-  headingsFull = headingsFull.slice(0, modelsArr.length);
-  console.log(headingsFull);
 } else if (part1.length < modelsArr.length && introCombosArr.length < modelsArr.length) {
   part1 = fillArray(part1, modelsArr);
   introCombosArr = fillArray(introCombosArr, modelsArr);
-  headingsFull = headingsFull.slice(0, modelsArr.length);
 } else if (part1.length < modelsArr.length && introCombosArr.length > modelsArr.length) {
   part1 = fillArray(part1, modelsArr);
   introCombosArr = introCombosArr.slice(0, modelsArr.length);
-  headingsFull = headingsFull.slice(0, modelsArr.length);
 } else if (part1.length > modelsArr.length && introCombosArr.length < modelsArr.length) {
   part1 = part1.slice(0, modelsArr.length);
   introCombosArr = fillArray(introCombosArr, modelsArr);
-  headingsFull = headingsFull.slice(0, modelsArr.length);
 }
 // ==================================================
 
@@ -155,8 +148,8 @@ if (part1.length > modelsArr.length && introCombosArr.length > modelsArr.length)
 // const headingFirst = fillArray(part1, modelsArr);
 // Modify and add data to object
 
-objOut.id = (prodidAdd != undefined) ? Number(prodidArr[0]) + prodidAdd : Number(prodidArr[0]);
-objOut.price = (priceAdd != undefined) ? Number(pricesArr[0]) + priceAdd : Number(pricesArr[0]);
+// objOut.id = (prodidAdd != undefined) ? Number(prodidArr[0]) + prodidAdd : Number(prodidArr[0]);
+// objOut.price = (priceAdd != undefined) ? Number(pricesArr[0]) + priceAdd : Number(pricesArr[0]);
 // New copy text
 
 let newCopyText = replaceText();
