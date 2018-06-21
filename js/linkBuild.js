@@ -14,7 +14,7 @@ let priceMax = config.priceMax;
 const headingsFile = config.headingsFile;
 const introText = config.introText;
 const copyFile = config.copyFile;
-const copyText = fs.readFileSync(copyFile,'utf8');
+// const copyText = fs.readFileSync(copyFile,'utf8');
 const headingsFull = [];
 let introCombosArr = [];
 let DB = [];
@@ -27,6 +27,15 @@ function getKeywords(file, index) {
   });
   return parsedParagraph[index].split('|');
 };
+
+// Define function for make conmbination of keywords in two arrays
+function headingCombs(arr1,arr2) {
+  arr1.map((val) => {
+    arr2.map((val2) => {
+      headingsFull.push(val + ". " + val2);
+    })
+  })
+}
 
 // Генерим вступления (определение)
 function introCombs(arr1,arr2) {
@@ -58,7 +67,6 @@ function getRandomInt(min, max) {
 }
 
 // Определяем функцию для генерирования текста (добавить параметр "индекс")
-console.log(newCopyText);
 function replaceText(file, part1, brand, prodID, intro, randomPrice) {
   const text = fs.readFileSync(file,'utf8');
   return text.replace(/\%FIRSTPART\%/g, part1)
@@ -104,11 +112,21 @@ function changeDBKey(whatToChange, key) {
 }
 
 // Placeholder for fill DB with rest of data
-// textNHeadings() {
+function restOfData() {
+  DB.map(obj => {
+    let index = DB.indexOf(obj);
+    let randomPrice = getRandomInt(priceMin, priceMax);
+    // let firstPart = part1;
+    let pID = obj.prodID;
+    let intro = introCombosArr[index];
+    obj.part1 = part1[index];
+    obj.heading = headingsFull[index];
+    obj.text = replaceText(copyFile, obj.part1, brand, pID, intro, randomPrice)
+  })
   // text = replaceText(copyFile, part1, brand, ); // К этому времени должны быть заголовки и случайная цена
       // obj.headingPart1 = part1[index];
       // obj.heading = headingCombs[index];
-// }
+}
 
 
 // Initial DB generate
@@ -137,7 +155,7 @@ function DBgen() {
   getFromDirName('prodID', /\((.*?)\)/g, /[\(\)]/g);
   changeDBKey(prodidAdd, 'prodID');
   changeDBKey(priceAdd, 'price');
-  // textNHeadings()
+
 };
 
 
@@ -157,6 +175,8 @@ introPart2 = getKeywords(introText, 1);
 introCombs(introPart1,introPart2);
 
 
+// Gen DB (in the end of script)
+DBgen();
 
 // Приводим к единой длине
 if (part1.length > DB.length && introCombosArr.length > DB.length) {
@@ -175,5 +195,4 @@ if (part1.length > DB.length && introCombosArr.length > DB.length) {
 
 
 // fill with rest of data?
-// Gen DB (in the end of script)
-DBgen();
+restOfData();
