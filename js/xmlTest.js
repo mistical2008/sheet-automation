@@ -5,11 +5,11 @@ const config = require('./config');
 // --------------------- BEGIN --------------------
 const xml = require('xml');
 const manager = 'ФИО';
+const allowEmail = 'Да';
 const phone = '555555555';
 const region = 'RU';
-const city = 'Moskow';
-const district = 'MO';
-const category = 'Аксессуары';
+const city = 'Москва';
+const category = 'Часы и украшения';
 const goodsType = 'Часы';
 const settingsJSON = path.resolve('./settings.json')
 let adIdMin = config.adIdMin;
@@ -75,13 +75,12 @@ let ad = DB.map(item => {
   // Build object
   let adObj = {Ad:[
     {id: randId++},
-    {DateBegin: 'DATE'},
-    {AllowEmail: 'Да'},
+    {DateBegin: 'YYYY-MM-DD'},
+    {AllowEmail: allowEmail},
     {ManagerName: manager},
     {ContactPhone: phone},
     {Region: region},
     {City: city},
-    {District: district},
     {Category: category},
     {GoodsType: goodsType},
     {Title: DB[index]["heading"]},
