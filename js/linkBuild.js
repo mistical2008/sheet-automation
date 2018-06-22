@@ -2,6 +2,7 @@
 // Set variables
 // const fs = require('fs');
 const fs = require('fs');
+var xml = require('xml');
 // const brand = ('../testdir');
 let config = require('./config');
 let workPath = config.workPath;
@@ -193,6 +194,32 @@ if (part1.length > DB.length && introCombosArr.length > DB.length) {
   introCombosArr = fillArray(introCombosArr, DB);
 }
 
-
 // fill with rest of data?
 restOfData();
+
+// ================== Sample code for xml =====================
+const ad = [{ Ads: [
+  {Ad:[
+    {id: 'someID'},
+    {DateBegin: 'date'},
+    {AdStatus: 'status'},
+    {AllowEmail: 'yes'},
+    {ManagerName: 'Manager Name'},
+    {ContactPhone: '484844994'},
+    {Region: 'RU'},
+    {City: 'Moskow'},
+    {District: 'MO'},
+    {Category: 'Some Category'},
+    {GoodsType: 'watch'},
+    {Title: 'Awesome watch'},
+    {Description: 'Брюки\nВерхняя одежда\nДжинсы\nКупальники'},
+    {Price: '$1000'},
+    {Images:[
+      {image: {_attr: {url: "http:some_url.html"}}}
+    ]},
+
+  ]}
+] }];
+var xmlString = xml(ad, true); // true parameter for nice formatting
+
+// ===============================================================

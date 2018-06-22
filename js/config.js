@@ -7,5 +7,7 @@ module.exports.introText = path.resolve('./random-text.txt');
 module.exports.copyFile = path.resolve('./copy-text.txt');
 module.exports.priceMin = (218);
 module.exports.priceMax = (398);
+module.exports.adIdMin = (100000);
+module.exports.adIdMax = (999999);
 module.exports.prodidAdd = (2);
 module.exports.priceAdd = (-300);
