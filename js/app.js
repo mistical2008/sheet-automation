@@ -12,9 +12,19 @@ let prodidAdd = config.prodidAdd;
 let priceAdd = config.priceAdd;
 let priceMin = config.priceMin;
 let priceMax = config.priceMax;
+let adIdMin = config.adIdMin;
+let adIdMax = config.adIdMax;
+const manager = config.manager;
+const allowEmail = config.allowEmail;
+const phone = config.phone;
+const region = config.region;
+const city = config.city;
+const category = config.category;
+const goodsType = config.goodsType;
 const headingsFile = config.headingsFile;
 const introText = config.introText;
 const copyFile = config.copyFile;
+const settingsJSON = config.settingsJSON;
 // const copyText = fs.readFileSync(copyFile,'utf8');
 const headingsFull = [];
 let introCombosArr = [];
@@ -176,10 +186,10 @@ introPart2 = getKeywords(introText, 1);
 introCombs(introPart1,introPart2);
 
 
-// Gen DB (in the end of script)
+// TASK: Generate initial DB
 DBgen();
 
-// Приводим к единой длине
+// TASK: to same length
 if (part1.length > DB.length && introCombosArr.length > DB.length) {
   part1 = part1.slice(0, DB.length);
   introCombosArr = introCombosArr.slice(0, DB.length);
@@ -194,32 +204,67 @@ if (part1.length > DB.length && introCombosArr.length > DB.length) {
   introCombosArr = fillArray(introCombosArr, DB);
 }
 
-// fill with rest of data?
+// TASK: fill with rest of data?
 restOfData();
 
-// ================== Sample code for xml =====================
-const ad = [{ Ads: [
-  {Ad:[
-    {id: 'someID'},
-    {DateBegin: 'date'},
-    {AdStatus: 'status'},
-    {AllowEmail: 'yes'},
-    {ManagerName: 'Manager Name'},
-    {ContactPhone: '484844994'},
-    {Region: 'RU'},
-    {City: 'Moskow'},
-    {District: 'MO'},
-    {Category: 'Some Category'},
-    {GoodsType: 'watch'},
-    {Title: 'Awesome watch'},
-    {Description: 'Брюки\nВерхняя одежда\nДжинсы\nКупальники'},
-    {Price: '$1000'},
-    {Images:[
-      {image: {_attr: {url: "http:some_url.html"}}}
-    ]},
 
-  ]}
-] }];
-var xmlString = xml(ad, true); // true parameter for nice formatting
+// TASK: write data to xml
+// Get adID
+let randId = (fs.existsSync(settingsJSON))
+  ? JSON.parse(fs.readFileSync(settingsJSON, 'utf8'))["id"]
+  : getRandomInt(adIdMin, adIdMax);
 
-// ===============================================================
+  // Get ad object
+let ad = DB.map(item => {
+  // let randIdLocal = randId;
+  // Get index of current element
+  let index = DB.indexOf(item);
+  // Create empty array for images object
+  let imgsArrNew = [];
+  // Get images array
+  let imgsArr = DB[index]["imgs"].map(imgLink => {
+    return imgLink;
+  }
+  );
+  // Create array with images object
+  imgsArr.map(img => {
+    imgsArrNew.push({image: {_attr: {url: img}}})
+  });
+  // Build object
+  let adObj = {Ad:[
+    {id: randId++},
+    {DateBegin: 'дата и время в формате YYYY-MM-DDTHH:mm:ss+hh:mm'},
+    {AllowEmail: allowEmail},
+    {ManagerName: manager},
+    {ContactPhone: phone},
+    {Region: region},
+    {City: city},
+    {Category: category},
+    {GoodsType: goodsType},
+    {Title: DB[index]["heading"]},
+    {Description: DB[index]["text"]},
+    {Price: DB[index]["price"]},
+    {Images:imgsArrNew}
+
+  ]};
+  // randIdLocal++;
+  return adObj; // elem =
+})
+// Save last ID to settings.json
+  let lastID = ad[ad.length - 1].Ad[0].id;
+  let settingsObj = {};
+  settingsObj.id = lastID;
+  let json = JSON.stringify(settingsObj);
+  fs.writeFileSync("./settings.json", json)
+
+// Get XML object
+let xmlString = xml({Ads: ad}, true).replace(/&amp;/g, '&');
+
+// Write XML
+fs.writeFile("./assets/ads.xml", xmlString, function err() {
+  if (err) {
+    return console.log(err);
+  }
+  console.log("The file was saved!");
+})
+// ------------------------ END ------------------------------------

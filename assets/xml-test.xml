@@ -1,0 +1,42 @@
+<Ads>
+    <Ad>
+        <id>1473586</id>
+        <DateBegin>дата и время в формате YYYY-MM-DDTHH:mm:ss+hh:mm</DateBegin>
+        <AllowEmail>Да</AllowEmail>
+        <ManagerName>ФИО</ManagerName>
+        <ContactPhone>555555555</ContactPhone>
+        <Region>Московская область</Region>
+        <City>Москва</City>
+        <Category>Часы и украшения</Category>
+        <GoodsType>Часы</GoodsType>
+        <Title>Заголовок</Title>
+        <Description>Брюки
+Верхняя & одежда
+Джинсы
+Купальники</Description>
+        <Price>$1000</Price>
+        <Images>
+            <image url="domain.ru/chasy/бренд & модель/картинка1.jpg"/>
+            <image url="domain.ru/chasy/бренд & модель/картинка2.jpg"/>
+            <image url="domain.ru/chasy/бренд & модель/картинка3.jpg"/>
+        </Images>
+    </Ad>
+    <Ad>
+        <id>1473587</id>
+        <DateBegin>дата и время в формате YYYY-MM-DDTHH:mm:ss+hh:mm</DateBegin>
+        <AllowEmail>Да</AllowEmail>
+        <ManagerName>ФИО</ManagerName>
+        <ContactPhone>555555555</ContactPhone>
+        <Region>Московская область</Region>
+        <City>Москва</City>
+        <Category>Часы и украшения</Category>
+        <GoodsType>Часы</GoodsType>
+        <Title>Заголовок 2</Title>
+        <Description>Текст объявления 2</Description>
+        <Price>значение цены</Price>
+        <Images>
+            <image url="domain.ru/chasy/бренд/модель/картинка1.jpg"/>
+            <image url="domain.ru/chasy/бренд/модель/картинка2.jpg"/>
+        </Images>
+    </Ad>
+</Ads>

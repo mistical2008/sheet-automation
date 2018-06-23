@@ -7,7 +7,7 @@ const xml = require('xml');
 const manager = 'ФИО';
 const allowEmail = 'Да';
 const phone = '555555555';
-const region = 'RU';
+const region = 'Московская область';
 const city = 'Москва';
 const category = 'Часы и украшения';
 const goodsType = 'Часы';
@@ -29,11 +29,11 @@ const DB = [{
   model: "Название бренда и модели",
   price: "$1000",
   prodID: 34543,
-  text: "Брюки\nВерхняя одежда\nДжинсы\nКупальники",
+  text: "Брюки\nВерхняя \& одежда\nДжинсы\nКупальники",
   imgs: [
-    "domain.ru/chasy/бренд/модель/картинка1.jpg",
-    "domain.ru/chasy/бренд/модель/картинка2.jpg",
-    "domain.ru/chasy/бренд/модель/картинка3.jpg"
+    "domain.ru/chasy/бренд & модель/картинка1.jpg",
+    "domain.ru/chasy/бренд & модель/картинка2.jpg",
+    "domain.ru/chasy/бренд & модель/картинка3.jpg"
   ]
 },
 {
@@ -51,7 +51,7 @@ const DB = [{
 }];
 
 // ------------------- BEGIN ---------------------------
-// Get random adID
+// Get adID
 let randId = (fs.existsSync(settingsJSON))
   ? JSON.parse(fs.readFileSync(settingsJSON, 'utf8'))["id"]
   : getRandomInt(adIdMin, adIdMax);
@@ -75,7 +75,7 @@ let ad = DB.map(item => {
   // Build object
   let adObj = {Ad:[
     {id: randId++},
-    {DateBegin: 'YYYY-MM-DD'},
+    {DateBegin: 'дата и время в формате YYYY-MM-DDTHH:mm:ss+hh:mm'},
     {AllowEmail: allowEmail},
     {ManagerName: manager},
     {ContactPhone: phone},
@@ -92,7 +92,7 @@ let ad = DB.map(item => {
   // randIdLocal++;
   return adObj; // elem =
 })
-// Get id in adObj[lasElement][Ad][id] if ./settings.json not exist and write to settings.json
+// Save last ID to settings.json
   let lastID = ad[ad.length - 1].Ad[0].id;
   let settingsObj = {};
   settingsObj.id = lastID;
@@ -100,10 +100,10 @@ let ad = DB.map(item => {
   fs.writeFileSync("./settings.json", json)
 
 // Get XML object
-let xmlString = xml({Ads: ad}, true);
+let xmlString = xml({Ads: ad}, true).replace(/&amp;/g, '&');
 
 // Write XML
-fs.writeFile("./test.xml", xmlString, function err() {
+fs.writeFile("./assets/xml-test.xml", xmlString, function err() {
   if (err) {
     return console.log(err);
   }
