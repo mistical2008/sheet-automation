@@ -1,6 +1,9 @@
 .~*
+*.zip
 .vscode
 package-lock.json
 node_modules/
 settings.json
 headings/
+dist/
+assets/**/*.jpg

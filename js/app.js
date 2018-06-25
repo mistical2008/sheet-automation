@@ -1,8 +1,8 @@
 // Set variables
 const fs = require('fs');
 const path = require('path');
-// const glob = require('glob');
 const xml = require('xml');
+const rimraf = require('rimraf');
 let config = require('./config');
 let workPath = config.workPath;
 const brand = fs.readdirSync(workPath)[0]; // Get brand dir
@@ -25,7 +25,8 @@ const headingsFile = path.resolve(workPath, config.headingsFile);
 const introText = path.resolve(workPath, config.introTextFile);
 const copyFile = path.resolve(workPath, config.copyFile);
 const settingsJSON = path.resolve(config.settingsJSON);
-const xmlFilePath = path.resolve(brandPath, config.outputXmlFile);
+const outputDir = path.resolve(__dirname, "../dist", brand);
+const xmlFilePath = path.resolve(outputDir, config.outputXmlFile);
 // const copyText = fs.readFileSync(copyFile,'utf8');
 const headingsFull = [];
 let introCombosArr = [];
@@ -263,12 +264,17 @@ let ad = DB.map(item => {
 // Get XML object
 let xmlString = xml({Ads: ad}, true).replace(/&amp;/g, '&');
 
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir);
+  console.log("Brand folder in './dist' created")
+}
 // Write XML
 // fs.writeFile("./assets/*/ads.xml", xmlString, function err() {
-fs.writeFile(xmlFilePath, xmlString, function err() {
-  if (err) {
-    return console.log(err); //?
-  }
+fs.writeFile(xmlFilePath, xmlString, (err) => {
+  if (err) throw err; //?
   console.log("The file was saved!");
-})
+  rimraf(brandPath, function () {
+    console.log("Brand folder removed!");
+  })
+});
 // ------------------------ END ------------------------------------

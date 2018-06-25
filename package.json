@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mistical2008/sheet-automation#readme",
   "dependencies": {
     "glob": "^7.1.2",
+    "rimraf": "^2.6.2",
     "xml": "^1.0.1"
   }
 }
