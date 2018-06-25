@@ -1,12 +1,12 @@
-// @ts-nocheck
 // Set variables
-// const fs = require('fs');
 const fs = require('fs');
-var xml = require('xml');
-// const brand = ('../testdir');
+const path = require('path');
+// const glob = require('glob');
+const xml = require('xml');
 let config = require('./config');
 let workPath = config.workPath;
 const brand = fs.readdirSync(workPath)[0]; // Get brand dir
+const brandPath = path.resolve(workPath, brand);
 const modelsDirs = fs.readdirSync(workPath + '/' + brand); // Get models dirs
 let prodidAdd = config.prodidAdd;
 let priceAdd = config.priceAdd;
@@ -21,10 +21,11 @@ const region = config.region;
 const city = config.city;
 const category = config.category;
 const goodsType = config.goodsType;
-const headingsFile = config.headingsFile;
-const introText = config.introText;
-const copyFile = config.copyFile;
-const settingsJSON = config.settingsJSON;
+const headingsFile = path.resolve(workPath, config.headingsFile);
+const introText = path.resolve(workPath, config.introTextFile);
+const copyFile = path.resolve(workPath, config.copyFile);
+const settingsJSON = path.resolve(config.settingsJSON);
+const xmlFilePath = path.resolve(brandPath, config.outputXmlFile);
 // const copyText = fs.readFileSync(copyFile,'utf8');
 const headingsFull = [];
 let introCombosArr = [];
@@ -250,6 +251,7 @@ let ad = DB.map(item => {
   // randIdLocal++;
   return adObj; // elem =
 })
+// TODO: refactor and rewreite to function
 // Save last ID to settings.json
   let lastID = ad[ad.length - 1].Ad[0].id;
   let settingsObj = {};
@@ -257,13 +259,15 @@ let ad = DB.map(item => {
   let json = JSON.stringify(settingsObj);
   fs.writeFileSync("./settings.json", json)
 
+// TODO: refactor and rewreite to function
 // Get XML object
 let xmlString = xml({Ads: ad}, true).replace(/&amp;/g, '&');
 
 // Write XML
-fs.writeFile("./assets/ads.xml", xmlString, function err() {
+// fs.writeFile("./assets/*/ads.xml", xmlString, function err() {
+fs.writeFile(xmlFilePath, xmlString, function err() {
   if (err) {
-    return console.log(err);
+    return console.log(err); //?
   }
   console.log("The file was saved!");
 })

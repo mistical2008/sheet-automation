@@ -17,7 +17,8 @@
     "url": "https://github.com/mistical2008/sheet-automation/issues"
   },
   "homepage": "https://github.com/mistical2008/sheet-automation#readme",
-  "devDependencies": {
+  "dependencies": {
+    "glob": "^7.1.2",
     "xml": "^1.0.1"
   }
 }

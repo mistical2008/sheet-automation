@@ -1,11 +1,12 @@
 // const brand = ('../testdir')
 const path = require('path');
-module.exports.workPath = path.resolve("./assets");
+module.exports.workPath = ("./assets");
 module.exports.domain = ("http://chasyoptom.ru/chasy/");
-module.exports.headingsFile = path.resolve('./heading_test.txt');
-module.exports.introText = path.resolve('./random-text.txt');
-module.exports.copyFile = path.resolve('./copy-text.txt');
-module.exports.settingsJSON = path.resolve('./settings.json')
+module.exports.headingsFile = ('./headings.txt');
+module.exports.introTextFile = ('./intro-template.txt');
+module.exports.copyFile = ('./copy-text.txt');
+module.exports.settingsJSON = ('./settings.json');
+module.exports.outputXmlFile = ('./ads.xml');
 // --------------------- Настройки объявления --------------------
 
 module.exports.priceMin = (218);
