@@ -80,13 +80,14 @@ function getRandomInt(min, max) {
 }
 
 // Определяем функцию для генерирования текста (добавить параметр "индекс")
-function replaceText(file, part1, brand, prodID, intro, randomPrice) {
+function replaceText(file, part1, brand, model, prodID, intro, randomPrice) {
   const text = fs.readFileSync(file,'utf8');
   return text.replace(/\%FIRSTPART\%/g, part1)
-  .replace(/\%BRAND\%/g, brand)
+  // .replace(/\%BRAND\%/g, brand)
   .replace(/\%PRODID\%/g, prodID)
   .replace(/\%RANDOMTEXT\%/g, intro)
-  .replace(/\%PRICE\%/g, randomPrice);
+  .replace(/\%PRICE\%/g, randomPrice)
+  .replace(/\%MODEL%/g, model)
 }
 
 
@@ -115,8 +116,8 @@ function shuffleArray(array) {
 
 // Define change price/prodID function
 function changeDBKey(whatToChange, key) {
-  DB.map(obj => {
-    let index = DB.indexOf(obj);
+  DB.map((obj, index) => {
+    // let index = DB.indexOf(obj);
     let objKey = key;
     DB[index][objKey] = (whatToChange != undefined)
       ? Number(DB[index][objKey]) + whatToChange
@@ -126,15 +127,16 @@ function changeDBKey(whatToChange, key) {
 
 // Placeholder for fill DB with rest of data
 function restOfData() {
-  DB.map(obj => {
-    let index = DB.indexOf(obj);
+  DB.map((obj, index) => {
+    // let index = DB.indexOf(obj);
     let randomPrice = getRandomInt(priceMin, priceMax);
     // let firstPart = part1;
     let pID = obj.prodID;
     let intro = introCombosArr[index];
-    obj.part1 = part1[index];
+    let model = obj.model;
+    obj.part1 = headingsFull[index].match(/(.*?)\.\s{1}/g)[0].replace('. ', '.');
     obj.heading = headingsFull[index];
-    obj.text = replaceText(copyFile, obj.part1, brand, pID, intro, randomPrice)
+    obj.text = replaceText(copyFile, obj.part1, brand, model, pID, intro, randomPrice)
   })
   // text = replaceText(copyFile, part1, brand, ); // К этому времени должны быть заголовки и случайная цена
       // obj.headingPart1 = part1[index];
@@ -169,6 +171,10 @@ function DBgen() {
       // // EDIT end
 
       obj.imgs = fs.readdirSync(workPath + '/' + brand + '/' + dir)
+      .filter(function (file) {
+        return (/^(.(.?.*\.jpg$|.*\.png))*$/g).test(file)
+      })
+
       .map(img => {
         tempArr.push(config.domain + brand + '/' + modelDir + '/' + img);
       });
@@ -178,7 +184,6 @@ function DBgen() {
     }
     DB.push(createObj());
   });
-
   // Call functions for fill DB with model, price, prodID and change if needed
   getFromDirName('model', /\w(.*?)\(/g, /\s\($/);
   getFromDirName('price', /\)(.*?)\d$/g, /^\)\s/);
@@ -234,10 +239,7 @@ let randId = (fs.existsSync(settingsJSON))
   : getRandomInt(adIdMin, adIdMax);
 
   // Get ad object
-let ad = DB.map(item => {
-  // let randIdLocal = randId;
-  // Get index of current element
-  let index = DB.indexOf(item);
+let ad = DB.map((item, index) => {
   // Create empty array for images object
   let imgsArrNew = [];
   // Get images array
@@ -290,8 +292,8 @@ if (!fs.existsSync(outputDir)) {
 fs.writeFile(xmlFilePath, xmlString, (err) => {
   if (err) throw err; //?
   console.log("The file was saved!");
-  rimraf(brandPath, function () {
-    console.log("Brand folder removed!");
-  })
+  // rimraf(brandPath, function () {
+  //   console.log("Brand folder removed!");
+  // })
 });
 // ------------------------ END ------------------------------------
