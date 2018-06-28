@@ -21,6 +21,7 @@ const region = config.region;
 const city = config.city;
 const category = config.category;
 const goodsType = config.goodsType;
+const deleteBrandFolder = config.deleteBrandFolder;
 const headingsFile = path.resolve(workPath, config.headingsFile);
 const introText = path.resolve(workPath, config.introTextFile);
 const copyFile = path.resolve(workPath, config.copyFile);
@@ -93,8 +94,7 @@ function replaceText(file, part1, brand, model, prodID, intro, randomPrice) {
 
 // Define dirname parse function
 function getFromDirName(key, toSearch, toReplace) {
-  return DB.map(obj => {
-    let index = DB.indexOf(obj);
+  return DB.map((obj, index) => {
     let objKey = key;
     return obj.modelDir.match(toSearch).map(val => {
       DB[index][objKey] = val.replace(toReplace, '')
@@ -117,7 +117,6 @@ function shuffleArray(array) {
 // Define change price/prodID function
 function changeDBKey(whatToChange, key) {
   DB.map((obj, index) => {
-    // let index = DB.indexOf(obj);
     let objKey = key;
     DB[index][objKey] = (whatToChange != undefined)
       ? Number(DB[index][objKey]) + whatToChange
@@ -138,9 +137,6 @@ function restOfData() {
     obj.heading = headingsFull[index];
     obj.text = replaceText(copyFile, obj.part1, brand, model, pID, intro, randomPrice)
   })
-  // text = replaceText(copyFile, part1, brand, ); // К этому времени должны быть заголовки и случайная цена
-      // obj.headingPart1 = part1[index];
-      // obj.heading = headingCombs[index];
 }
 
 
@@ -153,23 +149,6 @@ function DBgen() {
       obj.modelDir = dir;
       let modelDir = obj.modelDir;
       let tempArr = [];
-
-      // EDIT: test block of code
-      // function getImages(params) {
-      //   let files = fs.readdirSync(workPath + '/' + brand + '/' + dir);
-      //   let images = [];
-      //   let regularEx = /^(.(.?.*\.jpg$|.*\.png))*$/g;
-      //   files.map((file, index) => {
-      //     if (file.test(regularEx)) {
-      //       file.match(regularEx).map(img =>
-      //         images.push(img))
-      //     }
-      //   })
-      //   return images;
-      // }
-      // let imgs = getImages();
-      // // EDIT end
-
       obj.imgs = fs.readdirSync(workPath + '/' + brand + '/' + dir)
       .filter(function (file) {
         return (/^(.(.?.*\.jpg$|.*\.png))*$/g).test(file)
@@ -292,8 +271,8 @@ if (!fs.existsSync(outputDir)) {
 fs.writeFile(xmlFilePath, xmlString, (err) => {
   if (err) throw err; //?
   console.log("The file was saved!");
-  // rimraf(brandPath, function () {
-  //   console.log("Brand folder removed!");
-  // })
+  if (deleteBrandFolder) rimraf(brandPath, function () {
+    console.log("Brand folder removed!");
+  })
 });
 // ------------------------ END ------------------------------------

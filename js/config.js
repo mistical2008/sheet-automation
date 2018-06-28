@@ -7,7 +7,7 @@ module.exports.introTextFile = ('./intro-template.txt');
 module.exports.copyFile = ('./copy-text.txt');
 module.exports.settingsJSON = ('./settings.json');
 module.exports.outputXmlFile = ('./ads.xml');
-module.exports.deleteImages = (true);
+module.exports.deleteBrandFolder = (false);
 // --------------------- Настройки объявления --------------------
 
 module.exports.priceMin = (218);
