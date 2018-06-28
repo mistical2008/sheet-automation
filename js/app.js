@@ -151,6 +151,23 @@ function DBgen() {
       obj.modelDir = dir;
       let modelDir = obj.modelDir;
       let tempArr = [];
+
+      // EDIT: test block of code
+      // function getImages(params) {
+      //   let files = fs.readdirSync(workPath + '/' + brand + '/' + dir);
+      //   let images = [];
+      //   let regularEx = /^(.(.?.*\.jpg$|.*\.png))*$/g;
+      //   files.map((file, index) => {
+      //     if (file.test(regularEx)) {
+      //       file.match(regularEx).map(img =>
+      //         images.push(img))
+      //     }
+      //   })
+      //   return images;
+      // }
+      // let imgs = getImages();
+      // // EDIT end
+
       obj.imgs = fs.readdirSync(workPath + '/' + brand + '/' + dir)
       .map(img => {
         tempArr.push(config.domain + brand + '/' + modelDir + '/' + img);
@@ -262,7 +279,7 @@ let ad = DB.map(item => {
 
 // TODO: refactor and rewreite to function
 // Get XML object
-let xmlString = xml({Ads: ad}, true).replace(/&amp;/g, '&');
+let xmlString = xml({Ads: ad}, true);
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir);
