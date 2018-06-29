@@ -133,7 +133,7 @@ function restOfData() {
     let pID = obj.prodID;
     let intro = introCombosArr[index];
     let model = obj.model;
-    obj.part1 = headingsFull[index].match(/(.*?)\.\s{1}/g)[0].replace('. ', '.');
+    obj.part1 = headingsFull[index].match(/(.*?){3,}\.\s{1}/g)[0].replace(/(\.\s{1,})$/, '');
     obj.heading = headingsFull[index];
     obj.text = replaceText(copyFile, obj.part1, brand, model, pID, intro, randomPrice)
   })
